@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>video-player</title>
+        <link href="./css/index.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="wrap">
+            <div id="video-player" class="video-player">
+                <div class="video-player-left">
+                    <div id="play-box" class="play-box">
+                        <div id="unique-play" class="unique-play"><i></i></div>
+                        <video id="video" width="780">
+                            <source
+                                src="./video/DVA技能介绍.mp4"
+                                type="video/mp4"
+                            />
+                            Sorry, your browser doesn't support embedded videos.
+                        </video>
+                        <div id="play-action" class="play-action">
+                            <div id="progress" class="progress">
+                                <div id="step" class="step"></div>
+                            </div>
+                            <div class="control-box">
+                                <div class="control-left">
+                                    <div id="play" class="play" title="播放""></div>
+                                </div>
+                                <div class="control-right">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="video-player-right">
+                    <div class="comment-list"></div>
+                    <div class="comment-action">
+                        <input type="text" />
+                        <button>发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="./js/video-player.js"></script>
+    </body>
+</html>

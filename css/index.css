@@ -1,0 +1,119 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: scroll;
+}
+.wrap {
+    padding-top: 30px;
+    height: 2000px;
+}
+.video-player {
+    display: flex;
+    width: 1100px;
+    margin: 0 auto;
+}
+.play-box {
+    width: 780px;
+    position: relative;
+}
+.play-box.small {
+    position: fixed;
+    right: 4px;
+    bottom: 40px;
+    z-index: 100;
+}
+.play-action {
+    width: 100%;
+    height: 50px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.progress {
+    width: 100%;
+    height: 3px;
+    background-color: rgba(229, 182, 219, .5);
+    border-radius: 3px;
+}
+.progress .step {
+    width: 0;
+    height: 3px;
+    background-color: hotpink;
+    transition: width .5s;
+}
+.control-box {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 47px;
+    line-height: 47px;
+    font-size: 16px;
+    color: #fff;
+    background: rgba(182, 156, 177, 0.3);
+}
+.control-left, .control-right {
+    flex: 1;
+    padding: 10px;
+}
+.video-player-right {
+  width: 280px; 
+  padding: 0 10px;
+}
+.comment-list {
+    width: 100%;
+    height: calc(100% - 50px);
+    border: 1px solid hotpink;
+}
+.comment-action {
+    display: flex;
+    padding-top: 16px;
+    justify-content: space-between;
+}
+.comment-action input {
+    width: calc(100% - 70px);
+    height: 28px;
+    outline: none;
+    border: 1px solid hotpink;
+}
+.comment-action button {
+    width: 50px;
+    height: 30px;
+    border: 2px solid hotpink;
+    background: hotpink;
+    color: #fff;
+}
+.play {
+    width: 0;
+    height: 0;
+    border-top: 12px solid transparent;
+    border-left: 20px solid hotpink;
+    border-bottom: 12px solid transparent;
+}
+.unique-play {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(182, 156, 177, 0.7);
+    position: absolute;
+    right: 20px;
+    bottom: 60px;
+    display: none;
+    z-index: 101;
+}
+.unique-play i {
+    display: block;
+    border-left: 24px solid hotpink;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    position: absolute;
+    top: 50%;
+    left: 58%;
+    transform: translate(-50%,-50%);
+}
+.unique-play.small {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
