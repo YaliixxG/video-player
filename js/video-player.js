@@ -80,7 +80,9 @@ video.oncanplay = function() {
 // 监听视频区域鼠标滑入
 playBox.onmousemove = function() {
     if (isSmallWindow) {
-        uniquePlayBtn.className = 'unique-play small';
+        uniquePlayBtn.className = video.paused
+            ? 'unique-play small'
+            : 'unique-pause small';
         uniquePlayBtn.style.display = 'block';
         return;
     }
@@ -91,7 +93,6 @@ playBox.onmousemove = function() {
 // 监听视频区域鼠标滑出
 playBox.onmouseout = function() {
     if (isSmallWindow) {
-        uniquePlayBtn.className = 'unique-play small';
         uniquePlayBtn.style.display = 'none';
     } else {
         uniquePlayBtn.className = 'unique-play';
@@ -107,10 +108,12 @@ playBtn.onclick = function() {
 
     if (video.paused) {
         video.play();
+        playBtn.className = 'pause';
         uniquePlayBtn.style.display = 'none';
         playBtn.title = '暂停';
     } else {
         video.pause();
+        playBtn.className = 'play';
         uniquePlayBtn.style.display = 'block';
         playBtn.title = '播放';
     }
@@ -120,8 +123,10 @@ playBtn.onclick = function() {
 uniquePlayBtn.onclick = function() {
     if (video.paused) {
         video.play();
+        playBtn.className = 'pause';
         uniquePlayBtn.style.display = 'none';
     } else {
         video.pause();
+        playBtn.className = 'play';
     }
 };

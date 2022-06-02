@@ -82,14 +82,31 @@ body {
     background: hotpink;
     color: #fff;
 }
-.play {
+#play {
+    width: 24px;
+    height: 24px;
+}
+.play i {
+    content: '';
+    display: block;
     width: 0;
     height: 0;
     border-top: 12px solid transparent;
-    border-left: 20px solid hotpink;
+    border-left: 24px solid hotpink;
     border-bottom: 12px solid transparent;
 }
-.unique-play {
+.pause i::before, .pause i::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 24px;
+    background-color: hotpink;
+    float: left;
+}
+.pause i::before {
+    margin-right: 8px;
+}
+.unique-play, .unique-pause {
     width: 50px;
     height: 50px;
     border-radius: 50%;
@@ -110,10 +127,27 @@ body {
     left: 58%;
     transform: translate(-50%,-50%);
 }
-.unique-play.small {
+.unique-play.small, .unique-pause.small {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
+    z-index: 101;
 }
+.unique-pause i::before, .unique-pause i::after {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 24px;
+    background-color: hotpink;
+    position: absolute;
+    top: 50%;
+    left: 64%;
+    transform: translate(-50%,-50%);
+}
+.unique-pause i::before {
+    margin-right: 8px;
+    left: 36%;
+}
+
 
