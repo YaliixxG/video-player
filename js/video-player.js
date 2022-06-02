@@ -5,23 +5,29 @@ let vpWidth = 300; // .video-player-right宽度
 let wh; // #video宽高比
 let isSmallWindow = false; // 是否是小窗口模式
 let smallWindowWidth = 300; // 小窗口模式尺寸
+let isFullScreenMode = false; // 是否为全屏模式
 let video = document.querySelector('#video');
 let playBox = document.querySelector('#play-box');
 let playAction = document.querySelector('#play-action');
 let playBtn = document.querySelector('#play');
 let uniquePlayBtn = document.querySelector('#unique-play');
+let fullScreenBtn = document.querySelector('#full-screen');
 
 // 初始化尺寸
 const initSize = () => {
     let windowGap = 300;
     let width = document.body.clientWidth - windowGap - vpWidth;
 
-    if (width > videoWidthMax + windowGap) {
-        width = videoWidthMax + windowGap;
-    } else if (width < videoWidthMin + windowGap) {
-        width = videoWidthMin + windowGap;
+    if (width > videoWidthMax) {
+        width = videoWidthMax;
+    } else if (width < videoWidthMin) {
+        width = videoWidthMin;
     }
-    let height = width / wh;
+
+    let height = parseInt(width / wh);
+    width = isFullScreenMode ? video.clientWidth : width;
+    height = isFullScreenMode ? video.clientHeight : height;
+
     video.width = width;
     video.height = height;
 
@@ -128,5 +134,21 @@ uniquePlayBtn.onclick = function() {
     } else {
         video.pause();
         playBtn.className = 'play';
+    }
+};
+
+// 全屏播放
+fullScreenBtn.onclick = async function() {
+    if (document.fullscreenElement) {
+        document.exitFullscreen();
+        isFullScreenMode = false;
+        fullScreenBtn.title = '全屏';
+        fullScreenBtn.className = 'full-screen';
+    } else {
+        await playBox.requestFullscreen();
+        initSize();
+        isFullScreenMode = true;
+        fullScreenBtn.title = '退出全屏';
+        fullScreenBtn.className = 'full-screen out';
     }
 };
