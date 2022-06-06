@@ -143,7 +143,7 @@ body {
     margin-right: 8px;
     left: 36%;
 }
-.full-screen, .width-screen {
+.full-screen, .width-screen, .speed-play, .theater-mode {
     width: 24px;
     height: 24px;
     float: right;
@@ -164,6 +164,14 @@ body {
 .width-screen.out {
     background-image: url(../images/width-screen-out.png);
     background-size: 24px 24px;
+}
+.theater-mode {
+    background-image: url(../images/theater-mode.png);
+    background-size: 24px 24px; 
+}
+.speed-play {
+    background-image: url(../images/speed-play.png);
+    background-size: 24px 24px; 
 }
 
 
