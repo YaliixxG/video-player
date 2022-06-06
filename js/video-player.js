@@ -139,16 +139,54 @@ uniquePlayBtn.onclick = function() {
 
 // 全屏播放
 fullScreenBtn.onclick = async function() {
-    if (document.fullscreenElement) {
-        document.exitFullscreen();
+    if (isFullscreen()) {
+        exitFullscreen();
+        initSize();
         isFullScreenMode = false;
         fullScreenBtn.title = '全屏';
         fullScreenBtn.className = 'full-screen';
     } else {
-        await playBox.requestFullscreen();
-        initSize();
+        await openFullscreen(playBox);
         isFullScreenMode = true;
+        initSize();
         fullScreenBtn.title = '退出全屏';
         fullScreenBtn.className = 'full-screen out';
+    }
+};
+
+// 判断是否全屏
+const isFullscreen = () => {
+    return (
+        document.fullscreenElement ||
+        document.msFullscreenElement ||
+        document.mozFullScreenElement ||
+        document.webkitFullscreenElement ||
+        false
+    );
+};
+
+// 进入全屏
+const openFullscreen = ele => {
+    if (ele.requestFullscreen) {
+        ele.requestFullscreen();
+    } else if (ele.mozRequestFullScreen) {
+        ele.mozRequestFullScreen();
+    } else if (ele.webkitRequestFullscreen) {
+        ele.webkitRequestFullscreen();
+    } else if (ele.msRequestFullscreen) {
+        ele.msRequestFullscreen();
+    }
+};
+
+// 退出全屏
+const exitFullscreen = () => {
+    if (document.exitFullScreen) {
+        document.exitFullScreen();
+    } else if (document.mozCancelFullScreen) {
+        ele.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
     }
 };
