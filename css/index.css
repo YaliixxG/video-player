@@ -143,14 +143,26 @@ body {
     margin-right: 8px;
     left: 36%;
 }
-.full-screen {
+.full-screen, .width-screen {
     width: 24px;
     height: 24px;
+    float: right;
+    margin-left: 10px;
+}
+.full-screen.in {
     background-image: url(../images/full-screen-in.png);
     background-size: 24px 24px;
 }
 .full-screen.out {
     background-image: url(../images/full-screen-out.png);
+    background-size: 24px 24px;
+}
+.width-screen.in {
+    background-image: url(../images/width-screen-in.png);
+    background-size: 24px 24px;
+}
+.width-screen.out {
+    background-image: url(../images/width-screen-out.png);
     background-size: 24px 24px;
 }
 
