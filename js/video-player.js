@@ -17,6 +17,7 @@ let fullScreenBtn = document.querySelector('#full-screen');
 let widthScreenBtn = document.querySelector('#width-screen');
 let videoPlayerRight = document.querySelector('#video-player-right');
 let theaterMode = document.querySelector('#theater-mode');
+let videoPlayerLeft = document.querySelector('#video-player-left');
 
 // 初始化尺寸
 const initSize = () => {
@@ -222,5 +223,13 @@ const toggleWidthScreen = () => {
 };
 
 // 剧场模式
-// theaterMode.onclick = function() {
-// };
+theaterMode.onclick = function() {
+    isTheaterMode = !isTheaterMode;
+    if (isTheaterMode) {
+        videoPlayerLeft.className = 'video-player-left theater';
+        theaterMode.title = '退出剧场模式';
+    } else {
+        videoPlayerLeft.className = 'video-player-left';
+        theaterMode.title = '剧场模式';
+    }
+};
