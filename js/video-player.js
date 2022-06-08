@@ -15,9 +15,7 @@ let playBtn = document.querySelector('#play');
 let uniquePlayBtn = document.querySelector('#unique-play');
 let fullScreenBtn = document.querySelector('#full-screen');
 let widthScreenBtn = document.querySelector('#width-screen');
-let videoPlayerRight = document.querySelector('#video-player-right');
 let theaterMode = document.querySelector('#theater-mode');
-let videoPlayerLeft = document.querySelector('#video-player-left');
 
 // 初始化尺寸
 const initSize = () => {
@@ -213,6 +211,8 @@ widthScreenBtn.onclick = function() {
 
 // 宽屏播放
 const toggleWidthScreen = () => {
+    let videoPlayerRight = document.querySelector('#video-player-right');
+
     isWidthScreenMode = !isWidthScreenMode;
     initSize();
     widthScreenBtn.title = isWidthScreenMode ? '退出宽屏' : '宽屏';
@@ -224,6 +224,8 @@ const toggleWidthScreen = () => {
 
 // 剧场模式
 theaterMode.onclick = function() {
+    let videoPlayerLeft = document.querySelector('#video-player-left');
+
     isTheaterMode = !isTheaterMode;
     if (isTheaterMode) {
         videoPlayerLeft.className = 'video-player-left theater';
