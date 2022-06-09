@@ -3,6 +3,12 @@ body {
     padding: 0;
     overflow: scroll;
 }
+button {
+    border: none;
+    background: none;
+    color: hotpink;
+    text-align: center;
+}
 .video-player {
     display: flex;
     width: 1100px;
@@ -70,7 +76,7 @@ body {
     flex: 1;
     padding: 10px;
 }
-.control-left > div:hover, .control-right > div:hover {
+#full-screen:hover, #width-screen:hover, #theater-mode:hover {
     transform: scale(1.2);
 }
 .video-player-right {
@@ -158,8 +164,13 @@ body {
 .full-screen, .width-screen, .speed-play, .theater-mode {
     width: 24px;
     height: 24px;
+    line-height: 24px;
     float: right;
     margin-left: 10px;
+}
+.speed-play {
+    width: 50px;
+    text-align: center;
 }
 .full-screen.in {
     background-image: url(../images/full-screen-in.png);
@@ -182,8 +193,43 @@ body {
     background-size: 24px 24px; 
 }
 .speed-play {
-    background-image: url(../images/speed-play.png);
-    background-size: 24px 24px; 
+    position: relative;
+    height: 170px;
+    top: -144px;
+}
+.speed-play .speed-play-title {
+    width: 100%;
+    height: 24px;
+    font-weight: bold;
+    border: 1px solid hotpink;
+    border-radius: 8px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+.speed-play .speed-play-menu {
+    width: 44px;
+    list-style: none;
+    margin: 0;
+    padding: 2px;
+    background-color: rgba(182, 156, 177, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    border-radius: 8px;
+    visibility: hidden;
+}
+.speed-play .speed-play-menu .speed-play-menu-item {
+    height: 20px;
+    color: burlywood;
+    font-size: 10px;
+    line-height: 20px; 
+    cursor: pointer;
+}
+.speed-play .speed-play-menu .speed-play-menu-item:hover {
+    font-size: 14px;
+    color: hotpink;
 }
 
 

@@ -16,6 +16,10 @@ let uniquePlayBtn = document.querySelector('#unique-play');
 let fullScreenBtn = document.querySelector('#full-screen');
 let widthScreenBtn = document.querySelector('#width-screen');
 let theaterMode = document.querySelector('#theater-mode');
+let speedPlayBtn = document.querySelector('#speed-play');
+let speedPlayMenu = document.querySelector('.speed-play-menu');
+let speedPlayMenuItem = document.querySelector('.speed-play-menu-item');
+let speedPlayTitle = document.querySelector('.speed-play-title');
 
 // 初始化尺寸
 const initSize = () => {
@@ -115,7 +119,7 @@ playBox.onmouseout = function() {
     } else {
         uniquePlayBtn.className = 'unique-play';
     }
-    playAction.style.display = 'none';
+    // playAction.style.display = 'none';
 };
 
 // 控件播放按钮播放与暂停
@@ -235,3 +239,18 @@ theaterMode.onclick = function() {
         theaterMode.title = '剧场模式';
     }
 };
+
+// 倍速控件
+speedPlayBtn.onmousemove = function() {
+    speedPlayMenu.style.visibility = 'visible';
+};
+speedPlayBtn.onmouseout = function() {
+    speedPlayMenu.style.visibility = 'hidden';
+};
+speedPlayMenu.addEventListener('click', function(e) {
+    let dataValue = e.target.getAttribute('data-value');
+
+    video.playbackRate = Number(dataValue);
+    speedPlayTitle.innerText = dataValue === '1.0' ? '倍速' : dataValue + 'x';
+    speedPlayMenu.style.visibility = 'hidden';
+});
