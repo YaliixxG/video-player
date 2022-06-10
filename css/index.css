@@ -54,16 +54,31 @@ button {
     bottom: 0;
 }
 .progress {
-    width: 100%;
+    width: calc(100% - 16px);
     height: 3px;
     background-color: rgba(229, 182, 219, .5);
     border-radius: 3px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+.progress:hover {
+    background-color: rgba(229, 182, 219, .9);
 }
 .progress .step {
     width: 0;
     height: 3px;
     background-color: hotpink;
-    transition: width .5s;
+    transition: width .2s;
+    position: relative;
+}
+.progress .step i {
+    position: absolute;
+    top: -14px;
+    right: -12px;
+    width: 24px;
+    height: 24px;
+    background: url(../images/playing.png) no-repeat center;
+    background-size: 100% 100%;
 }
 .control-box {
     display: flex;
@@ -120,16 +135,19 @@ button {
 .play {
     background-image: url(../images/play.png);
     background-size: 24px 24px;
+    cursor: pointer;
 }
 .pause {
     background-image: url(../images/pause.png);
     background-size: 24px 24px;
+    cursor: pointer;
 }
 .unique-play, .unique-pause {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     background-color: rgba(182, 156, 177, 0.7);
+    cursor: pointer;
     position: absolute;
     right: 20px;
     bottom: 60px;
@@ -177,6 +195,7 @@ button {
     line-height: 24px;
     float: right;
     margin-left: 10px;
+    cursor: pointer;
 }
 .speed-play {
     width: 50px;
@@ -206,13 +225,14 @@ button {
     position: relative;
     height: 170px;
     top: -144px;
+    font-weight: bold;
 }
 .speed-play .speed-play-title {
     width: 100%;
     height: 24px;
-    font-weight: bold;
     border: 1px solid hotpink;
     border-radius: 8px;
+    cursor: pointer;
     position: absolute;
     left: 0;
     bottom: 0;

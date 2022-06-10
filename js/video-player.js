@@ -9,6 +9,7 @@ let isFullScreenMode = false; // 是否为全屏模式
 let isWidthScreenMode = false; // 是否为宽屏模式
 let isTheaterMode = false; // 是否为剧场模式
 let timer; // 定时器
+let progressWidth = 780; // 进度条长度
 let video = document.querySelector('#video');
 let playBox = document.querySelector('#play-box');
 let playAction = document.querySelector('#play-action');
@@ -19,8 +20,7 @@ let widthScreenBtn = document.querySelector('#width-screen');
 let theaterMode = document.querySelector('.theater-mode');
 let speedPlayBtn = document.querySelector('.speed-play');
 let speedPlayMenu = document.querySelector('.speed-play-menu');
-let speedPlayMenuItem = document.querySelector('.speed-play-menu-item');
-let speedPlayTitle = document.querySelector('.speed-play-title');
+let progressStep = document.querySelector('#step');
 
 // 初始化尺寸
 const initSize = () => {
@@ -46,6 +46,7 @@ const initSize = () => {
 
     video.width = width;
     video.height = height;
+    progressWidth = width - 16;
 
     document.querySelector('#video-player').style.width = isWidthScreenMode
         ? width + 'px'
@@ -156,7 +157,11 @@ playBox.onmouseout = function() {
 // 播放
 const play = () => {
     video.play();
-    timer = setInterval(_ => getCurrentTime(), 1000);
+    let stepWidth = progressWidth / video.duration;
+    timer = setInterval(_ => {
+        getCurrentTime();
+        getCurrentStep(stepWidth);
+    }, 100);
     playBtn.className = 'pause';
     uniquePlayBtn.style.display = 'none';
     playBtn.title = '暂停';
@@ -171,7 +176,7 @@ const pause = () => {
     playBtn.title = '播放';
 };
 
-// 控件播放按钮播放与暂停
+// 播放按钮控件播放与暂停
 playBtn.onclick = function() {
     uniquePlayBtn.className = isSmallWindow
         ? 'unique-play small'
@@ -285,6 +290,19 @@ speedPlayMenu.addEventListener('click', function(e) {
     let dataValue = e.target.getAttribute('data-value');
 
     video.playbackRate = Number(dataValue);
-    speedPlayTitle.innerText = dataValue === '1.0' ? '倍速' : dataValue + 'x';
+    document.querySelector('.speed-play-title').innerText =
+        dataValue === '1.0' ? '倍速' : dataValue + 'x';
     speedPlayMenu.style.visibility = 'hidden';
 });
+
+// 进度条
+const getCurrentStep = stepWidth => {
+    progressStep.style.width = stepWidth * video.currentTime + 'px';
+};
+
+// 单击进度条控制快进，快退
+document.querySelector('#progress').onclick = function(e) {
+    if (e.offsetX < 0) return;
+    progressStep.style.width = e.offsetX + 'px';
+    video.currentTime = (e.offsetX / progressWidth) * video.duration;
+};
