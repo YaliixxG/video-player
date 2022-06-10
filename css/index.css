@@ -3,6 +3,9 @@ body {
     padding: 0;
     overflow: scroll;
 }
+.wrap {
+    height: 2000px;
+}
 button {
     border: none;
     background: none;
@@ -75,8 +78,9 @@ button {
 .control-left, .control-right {
     flex: 1;
     padding: 10px;
+    line-height: 24px;
 }
-#full-screen:hover, #width-screen:hover, #theater-mode:hover {
+.full-screen:hover, .width-screen:hover, .theater-mode:hover {
     transform: scale(1.2);
 }
 .video-player-right {
@@ -106,9 +110,12 @@ button {
     background: hotpink;
     color: #fff;
 }
-.play, .pause {
+.play, .pause, .time {
     width: 24px;
     height: 24px;
+    float: left;
+    margin-right: 10px;
+    color: hotpink;
 }
 .play {
     background-image: url(../images/play.png);
@@ -160,6 +167,9 @@ button {
 .unique-pause i::before {
     margin-right: 8px;
     left: 36%;
+}
+.time {
+    font-size: 14px;
 }
 .full-screen, .width-screen, .speed-play, .theater-mode {
     width: 24px;

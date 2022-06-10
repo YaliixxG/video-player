@@ -8,6 +8,7 @@ let smallWindowWidth = 300; // 小窗口模式尺寸
 let isFullScreenMode = false; // 是否为全屏模式
 let isWidthScreenMode = false; // 是否为宽屏模式
 let isTheaterMode = false; // 是否为剧场模式
+let timer; // 定时器
 let video = document.querySelector('#video');
 let playBox = document.querySelector('#play-box');
 let playAction = document.querySelector('#play-action');
@@ -15,8 +16,8 @@ let playBtn = document.querySelector('#play');
 let uniquePlayBtn = document.querySelector('#unique-play');
 let fullScreenBtn = document.querySelector('#full-screen');
 let widthScreenBtn = document.querySelector('#width-screen');
-let theaterMode = document.querySelector('#theater-mode');
-let speedPlayBtn = document.querySelector('#speed-play');
+let theaterMode = document.querySelector('.theater-mode');
+let speedPlayBtn = document.querySelector('.speed-play');
 let speedPlayMenu = document.querySelector('.speed-play-menu');
 let speedPlayMenuItem = document.querySelector('.speed-play-menu-item');
 let speedPlayTitle = document.querySelector('.speed-play-title');
@@ -93,9 +94,39 @@ const escSmallWindow = () => {
     initSize();
 };
 
+// 格式化时间
+const formatTime = t => {
+    let h = parseInt(t / 3600);
+    let t1 = t - h * 3600;
+    let m = parseInt(t1 / 60);
+    let s = Math.round(t1 - m * 60);
+    m = m < 10 ? '0' + m : m;
+    s = s < 10 ? '0' + s : s;
+    if (!!h) {
+        h = h < 10 ? '0' + h : h;
+        return h + ':' + m + ':' + s;
+    }
+    return m + ':' + s;
+};
+
+// 获取时间
+const getVideoTime = () => {
+    let allTime = formatTime(video.duration);
+    let timeAll = document.querySelector('.time-all');
+    timeAll.innerText = allTime;
+};
+
+// 获取当前时间
+const getCurrentTime = () => {
+    let currentTime = formatTime(video.currentTime);
+    document.querySelector('.time-now').innerText = currentTime;
+};
+
 // 视频就绪
 video.oncanplay = function() {
     wh = video.clientWidth / video.clientHeight;
+    getVideoTime();
+    getCurrentTime();
     initSize();
 };
 
@@ -119,7 +150,25 @@ playBox.onmouseout = function() {
     } else {
         uniquePlayBtn.className = 'unique-play';
     }
-    // playAction.style.display = 'none';
+    playAction.style.display = 'none';
+};
+
+// 播放
+const play = () => {
+    video.play();
+    timer = setInterval(_ => getCurrentTime(), 1000);
+    playBtn.className = 'pause';
+    uniquePlayBtn.style.display = 'none';
+    playBtn.title = '暂停';
+};
+
+// 暂停
+const pause = () => {
+    video.pause();
+    clearInterval(timer);
+    playBtn.className = 'play';
+    uniquePlayBtn.style.display = 'block';
+    playBtn.title = '播放';
 };
 
 // 控件播放按钮播放与暂停
@@ -128,29 +177,12 @@ playBtn.onclick = function() {
         ? 'unique-play small'
         : 'unique-play';
 
-    if (video.paused) {
-        video.play();
-        playBtn.className = 'pause';
-        uniquePlayBtn.style.display = 'none';
-        playBtn.title = '暂停';
-    } else {
-        video.pause();
-        playBtn.className = 'play';
-        uniquePlayBtn.style.display = 'block';
-        playBtn.title = '播放';
-    }
+    video.paused ? play() : pause();
 };
 
 // 全局播放按钮播放与暂停
 uniquePlayBtn.onclick = function() {
-    if (video.paused) {
-        video.play();
-        playBtn.className = 'pause';
-        uniquePlayBtn.style.display = 'none';
-    } else {
-        video.pause();
-        playBtn.className = 'play';
-    }
+    video.paused ? play() : pause();
 };
 
 // 判断是否全屏
@@ -244,9 +276,11 @@ theaterMode.onclick = function() {
 speedPlayBtn.onmousemove = function() {
     speedPlayMenu.style.visibility = 'visible';
 };
+
 speedPlayBtn.onmouseout = function() {
     speedPlayMenu.style.visibility = 'hidden';
 };
+
 speedPlayMenu.addEventListener('click', function(e) {
     let dataValue = e.target.getAttribute('data-value');
 
