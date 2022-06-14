@@ -20,7 +20,7 @@ let widthScreenBtn = document.querySelector('#width-screen');
 let theaterMode = document.querySelector('.theater-mode');
 let speedPlayBtn = document.querySelector('.speed-play');
 let speedPlayMenu = document.querySelector('.speed-play-menu');
-let progressStep = document.querySelector('#step');
+let progressStep = document.querySelector('.step');
 
 // 初始化尺寸
 const initSize = () => {
@@ -305,4 +305,30 @@ document.querySelector('#progress').onclick = function(e) {
     if (e.offsetX < 0) return;
     progressStep.style.width = e.offsetX + 'px';
     video.currentTime = (e.offsetX / progressWidth) * video.duration;
+};
+
+// 拖动进度条控制快进，快退
+document.querySelector('#step-flag').onmousedown = function(event) {
+    let e = event || window.event;
+    let stepFlagLeft = e.clientX - this.offsetLeft;
+
+    document.onmousemove = function(event) {
+        let e = event || window.event;
+        let progressX = e.clientX - stepFlagLeft;
+        if (progressX <= 0) {
+            progressX = 0;
+        }
+        if (progressX >= progressWidth) {
+            progressX = progressWidth;
+        }
+        progressStep.style.width = progressX + 'px';
+        video.currentTime = (progressX / progressWidth) * video.duration;
+    };
+
+    document.onmouseup = function() {
+        document.onmousemove = null;
+        document.onmousedown = null;
+    };
+
+    return false;
 };
