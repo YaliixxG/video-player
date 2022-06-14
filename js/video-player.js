@@ -268,13 +268,10 @@ theaterMode.onclick = function() {
     let videoPlayerLeft = document.querySelector('#video-player-left');
 
     isTheaterMode = !isTheaterMode;
-    if (isTheaterMode) {
-        videoPlayerLeft.className = 'video-player-left theater';
-        theaterMode.title = '退出剧场模式';
-    } else {
-        videoPlayerLeft.className = 'video-player-left';
-        theaterMode.title = '剧场模式';
-    }
+    videoPlayerLeft.className = isTheaterMode
+        ? 'video-player-left theater'
+        : 'video-player-left';
+    theaterMode.title = isTheaterMode ? '退出剧场模式' : '剧场模式';
 };
 
 // 倍速控件
