@@ -6,8 +6,9 @@ body {
 button {
     border: none;
     background: none;
-    color: hotpink;
+    color: #FF69B4;
     text-align: center;
+    padding: 0;
 }
 .video-player {
     display: flex;
@@ -30,7 +31,7 @@ button {
 .play-box {
     width: 780px;
     position: relative;
-    background-color: hotpink;
+    background-color: #FF69B4;
 }
 .play-box.small {
     position: fixed;
@@ -61,14 +62,14 @@ button {
 .progress:hover {
     background-color: rgba(229, 182, 219, .9);
 }
-.progress .step {
+.step {
     width: 0;
     height: 3px;
-    background-color: hotpink;
+    background-color: #FF69B4;
     transition: width .2s;
     position: relative;
 }
-.progress .step i {
+#step-flag {
     position: absolute;
     top: -14px;
     right: -12px;
@@ -92,7 +93,7 @@ button {
     padding: 10px;
     line-height: 24px;
 }
-.full-screen:hover, .width-screen:hover, .theater-mode:hover {
+.full-screen:hover, .width-screen:hover, .theater-mode:hover, .speed-play-title:hover, .volume-on:hover, .volume-off:hover {
     transform: scale(1.2);
 }
 .video-player-right {
@@ -102,7 +103,7 @@ button {
 .comment-list {
     width: 100%;
     height: calc(100% - 50px);
-    border: 1px solid hotpink;
+    border: 1px solid #FF69B4;
 }
 .comment-action {
     display: flex;
@@ -113,21 +114,21 @@ button {
     width: calc(100% - 70px);
     height: 28px;
     outline: none;
-    border: 1px solid hotpink;
+    border: 1px solid #FF69B4;
 }
 .comment-action button {
     width: 50px;
     height: 30px;
-    border: 2px solid hotpink;
-    background: hotpink;
+    border: 2px solid #FF69B4;
+    background: #FF69B4;
     color: #fff;
 }
 .play, .pause, .time {
     width: 24px;
     height: 24px;
     float: left;
-    margin-right: 10px;
-    color: hotpink;
+    margin-right: 14px;
+    color: #FF69B4;
 }
 .play {
     background-image: url(../images/play.png);
@@ -153,7 +154,7 @@ button {
 }
 .unique-play i {
     display: block;
-    border-left: 24px solid hotpink;
+    border-left: 24px solid #FF69B4;
     border-top: 12px solid transparent;
     border-bottom: 12px solid transparent;
     position: absolute;
@@ -173,7 +174,7 @@ button {
     display: block;
     width: 8px;
     height: 24px;
-    background-color: hotpink;
+    background-color: #FF69B4;
     position: absolute;
     top: 50%;
     left: 64%;
@@ -186,12 +187,12 @@ button {
 .time {
     font-size: 14px;
 }
-.full-screen, .width-screen, .speed-play, .theater-mode {
+.full-screen, .width-screen, .speed-play, .theater-mode, .volume-ctrl {
     width: 24px;
     height: 24px;
     line-height: 24px;
     float: right;
-    margin-left: 10px;
+    margin-left: 14px;
     cursor: pointer;
 }
 .speed-play {
@@ -218,23 +219,24 @@ button {
     background-image: url(../images/theater-mode.png);
     background-size: 24px 24px; 
 }
-.speed-play {
+.speed-play, .volume-ctrl{
     position: relative;
     height: 170px;
     top: -144px;
     font-weight: bold;
 }
-.speed-play .speed-play-title {
+.speed-play-title {
     width: 100%;
     height: 24px;
-    border: 1px solid hotpink;
+    border: 1px solid #FF69B4;
+    font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
     position: absolute;
     left: 0;
     bottom: 0;
 }
-.speed-play .speed-play-menu {
+.speed-play-menu, .volume-adjustment {
     width: 44px;
     list-style: none;
     margin: 0;
@@ -247,16 +249,59 @@ button {
     border-radius: 8px;
     visibility: hidden;
 }
-.speed-play .speed-play-menu .speed-play-menu-item {
+.speed-play-menu-item {
     height: 20px;
-    color: burlywood;
+    color: #FF69B4;
     font-size: 10px;
     line-height: 20px; 
     cursor: pointer;
 }
-.speed-play .speed-play-menu .speed-play-menu-item:hover {
+.speed-play-menu-item:hover {
     font-size: 14px;
-    color: hotpink;
+    color: burlywood;
+}
+.volume-on {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    bottom: 0; 
+    background-image: url(../images/volume-on.png);
+    background-size: 24px 24px;
+}
+.volume-on.muted {
+    background-image: url(../images/volume-off.png);
+    background-size: 24px 24px;
+}
+.volume-adjustment {
+    width: 100%;
+    height: 120px;
+}
+.volume-all, .volume-now {
+    width: 0px;
+    position: absolute;
+    left: 12px;
+}
+.volume-all {
+    height: 100px;
+    border: 2px solid rgba(229, 182, 219, .5);
+    top: 10px;
+}
+.volume-now {
+    height: 50px;
+    border: 2px solid rgba(255,105,180, .7);
+    bottom: 10px;
+    z-index: 100;
+}
+#volume-flag {
+    position: absolute;
+    top: -2px;
+    left: -7px;
+    width: 14px;
+    height: 6px;
+    border-radius: 6px;
+    background-color: #FF69B4;
 }
 
 

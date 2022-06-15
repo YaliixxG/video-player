@@ -10,6 +10,8 @@ let isWidthScreenMode = false; // 是否为宽屏模式
 let isTheaterMode = false; // 是否为剧场模式
 let timer; // 定时器
 let progressWidth = 780; // 进度条长度
+let volumeNum = 0.5; // 音量
+let isSilent = false; // 是否静音
 let video = document.querySelector('#video');
 let playBox = document.querySelector('#play-box');
 let playAction = document.querySelector('#play-action');
@@ -21,6 +23,8 @@ let theaterMode = document.querySelector('.theater-mode');
 let speedPlayBtn = document.querySelector('.speed-play');
 let speedPlayMenu = document.querySelector('.speed-play-menu');
 let progressStep = document.querySelector('.step');
+let volumeCtrl = document.querySelector('.volume-ctrl');
+let volumeOnBtn = document.querySelector('.volume-on');
 
 // 初始化尺寸
 const initSize = () => {
@@ -320,6 +324,57 @@ document.querySelector('#step-flag').onmousedown = function(event) {
         }
         progressStep.style.width = progressX + 'px';
         video.currentTime = (progressX / progressWidth) * video.duration;
+    };
+
+    document.onmouseup = function() {
+        document.onmousemove = null;
+        document.onmousedown = null;
+    };
+
+    return false;
+};
+
+// 音量控件
+volumeCtrl.onmousemove = function() {
+    document.querySelector('.volume-adjustment').style.visibility = 'visible';
+};
+
+volumeCtrl.onmouseout = function() {
+    document.querySelector('.volume-adjustment').style.visibility = 'hidden';
+};
+
+const setVolume = function(num) {
+    video.volume = num;
+    volumeNum = num || volumeNum;
+    isSilent = num <= 0;
+    document.querySelector('.volume-now').style.height = num * 100 + 'px';
+    volumeOnBtn.className = isSilent ? 'volume-on muted' : 'volume-on';
+};
+
+// 静音设置
+
+volumeOnBtn.onclick = function() {
+    isSilent = !isSilent;
+    video.volume = isSilent ? 0 : volumeNum;
+    setVolume(video.volume);
+};
+
+// 拖动音量块控制音量
+document.querySelector('#volume-flag').onmousedown = function(event) {
+    let volumeAll = document.querySelector('.volume-all');
+    let e = event || window.event;
+    let volumeAllTop = volumeAll.getBoundingClientRect().bottom - 10;
+
+    document.onmousemove = function(event) {
+        let e = event || window.event;
+        let progressY = volumeAllTop - e.clientY;
+        if (progressY <= 0) {
+            progressY = 0;
+        }
+        if (progressY >= 100) {
+            progressY = 100;
+        }
+        setVolume(progressY / 100);
     };
 
     document.onmouseup = function() {
