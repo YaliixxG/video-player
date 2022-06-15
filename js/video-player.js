@@ -348,6 +348,7 @@ const setVolume = function(num) {
     volumeNum = num || volumeNum;
     isSilent = num <= 0;
     document.querySelector('.volume-now').style.height = num * 100 + 'px';
+    document.querySelector('.volume-text').innerText = parseInt(num * 100);
     volumeOnBtn.className = isSilent ? 'volume-on muted' : 'volume-on';
 };
 
@@ -374,6 +375,7 @@ document.querySelector('#volume-flag').onmousedown = function(event) {
         if (progressY >= 100) {
             progressY = 100;
         }
+        document.querySelector('.volume-text').innerText = progressY;
         setVolume(progressY / 100);
     };
 
