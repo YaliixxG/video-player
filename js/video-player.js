@@ -12,6 +12,8 @@ let timer; // 定时器
 let progressWidth = 780; // 进度条长度
 let volumeNum = 0.5; // 音量
 let isSilent = false; // 是否静音
+let isShowBarrage = true; // 是否展示弹幕
+let barrageData = []; // 弹幕数据
 let video = document.querySelector('#video');
 let playBox = document.querySelector('#play-box');
 let playAction = document.querySelector('#play-action');
@@ -25,6 +27,11 @@ let speedPlayMenu = document.querySelector('.speed-play-menu');
 let progressStep = document.querySelector('.step');
 let volumeCtrl = document.querySelector('.volume-ctrl');
 let volumeOnBtn = document.querySelector('.volume-on');
+let barrageBox = document.querySelector('.barrage-box');
+let barrageBtn = document.querySelector('.barrage-btn');
+let commentListWrap = document.querySelector('.comment-list-wrap');
+let commentUl = document.querySelector('.comment-list-wrap ul');
+let noCommentTips = document.querySelector('.no-comment-tips');
 
 // 初始化尺寸
 const initSize = () => {
@@ -58,6 +65,11 @@ const initSize = () => {
     playBox.style.width = width + 'px';
     playBox.style.height = height + 'px';
     playAction.style.width = width + 'px';
+    barrageBox.style.width = width + 'px';
+    barrageBox.style.height = height - 50 + 'px';
+
+    loadingBarrageList();
+    setBarrageByTime();
 };
 
 // 监听浏览器窗口尺寸
@@ -385,4 +397,96 @@ document.querySelector('#volume-flag').onmousedown = function(event) {
     };
 
     return false;
+};
+
+// 监听视频播放时间
+video.addEventListener('timeupdate', function() {
+    showScreenBarrage();
+});
+
+// 视频结束
+video.addEventListener('ended', function() {
+    pause();
+});
+
+// 发送弹幕
+document.querySelector('.submit-btn').onclick = function() {
+    let commentValue = document.querySelector('.comment-value');
+
+    if (!barrageJSON.length) {
+        commentListWrap.className = 'comment-list-wrap';
+        noCommentTips.style.display = 'none';
+    }
+
+    // 前端数据（视频弹幕数据按视频时间）
+    barrageData.unshift({
+        content: commentValue.value,
+        time: video.currentTime
+    });
+
+    // 后台数据（弹幕列表按发送时间）
+    barrageJSON.push({
+        content: commentValue.value,
+        time: video.currentTime
+    });
+
+    let commentLi = document.createElement('li');
+    commentLi.innerText = commentValue.value;
+    commentLi.title = commentValue.value;
+    commentUl.appendChild(commentLi);
+    commentListWrap.scrollTop = commentListWrap.scrollHeight;
+    commentValue.value = '';
+};
+
+// 装载弹幕列表数据
+const loadingBarrageList = () => {
+    commentUl.innerHTML = '';
+    if (!barrageJSON.length) {
+        commentListWrap.className = 'comment-list-wrap no-comment';
+        noCommentTips.style.display = 'block';
+        return;
+    }
+    barrageJSON.forEach((item, i) => {
+        let commentLi = document.createElement('li');
+        commentLi.innerText = item.content;
+        commentLi.title = item.content;
+        commentUl.appendChild(commentLi);
+    });
+};
+
+// 弹幕按视频时间排序
+const setBarrageByTime = () => {
+    barrageData = JSON.parse(JSON.stringify(barrageJSON));
+    barrageData.sort((a, b) => a.time - b.time);
+};
+
+// 显示屏幕弹幕
+const showScreenBarrage = () => {
+    if (
+        !barrageData.length ||
+        isSmallWindow ||
+        video.currentTime < barrageData[0].time
+    )
+        return;
+
+    if (video.currentTime - barrageData[0].time > 2) {
+        barrageData.shift();
+        return;
+    }
+    let barrageBoxItem = document.createElement('div');
+    barrageBoxItem.innerText = barrageData[0].content;
+    barrageBoxItem.style.top =
+        parseInt(barrageBox.style.height) * Math.random() - 10 + 'px';
+    barrageBox.appendChild(barrageBoxItem);
+    barrageData.shift();
+};
+
+// 弹幕开关控件
+barrageBtn.onclick = function() {
+    isShowBarrage = !isShowBarrage;
+    barrageBox.style.opacity = isShowBarrage ? 1 : 0;
+    barrageBtn.title = isShowBarrage ? '关弹幕' : '开弹幕';
+    barrageBtn.className = isShowBarrage
+        ? 'barrage-btn barrage-off'
+        : 'barrage-btn barrage-on';
 };

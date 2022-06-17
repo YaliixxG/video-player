@@ -10,6 +10,18 @@ button {
     text-align: center;
     padding: 0;
 }
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(182, 156, 177, 0.3);
+}
 .video-player {
     display: flex;
     width: 1100px;
@@ -25,7 +37,7 @@ button {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 999;
+    z-index: 100;
     transition: all 2s;
 }
 .play-box {
@@ -50,6 +62,7 @@ button {
     position: absolute;
     left: 0;
     bottom: 0;
+    z-index: 100;
 }
 .progress {
     width: calc(100% - 16px);
@@ -103,7 +116,48 @@ button {
 .comment-list {
     width: 100%;
     height: calc(100% - 50px);
+    box-sizing: border-box;
     border: 1px solid #FF69B4;
+    padding: 6px;
+    color: #333;
+}
+.comment-header {
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+    padding: 0 4px;
+    line-height: 30px;
+    font-size: 16px;
+    background-color: rgba(182, 156, 177, 0.3);
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.comment-list-wrap {
+    width: 100%;
+    height: 360px;
+    box-sizing: border-box;
+    padding: 0 4px;
+    overflow-y: scroll;
+    font-size: 12px;
+}
+.comment-list-wrap ul {
+    width: 100%;
+}
+.comment-list-wrap li {
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    white-space: nowrap;   
+    text-overflow: ellipsis;
+}
+.no-comment-tips {
+    display: none;
+}
+.comment-list-wrap.no-comment {
+    line-height: 360px; 
+    text-align: center;
 }
 .comment-action {
     display: flex;
@@ -122,14 +176,18 @@ button {
     border: 2px solid #FF69B4;
     background: #FF69B4;
     color: #fff;
+    cursor: pointer;
 }
-.play, .pause, .time {
+.play, .pause, .time, .barrage-btn {
     width: 24px;
     height: 24px;
     float: left;
     margin-right: 14px;
     color: #FF69B4;
 }
+.time {
+    width: auto;
+} 
 .play {
     background-image: url(../images/play.png);
     background-size: 24px 24px;
@@ -238,14 +296,13 @@ button {
 }
 .speed-play-menu, .volume-adjustment {
     width: 44px;
-    list-style: none;
     margin: 0;
     padding: 2px;
     background-color: rgba(182, 156, 177, 0.7);
     position: absolute;
     top: -60px;
     left: 0;
-    z-index: 1000;
+    z-index: 100;
     border-radius: 8px;
     visibility: hidden;
 }
@@ -313,6 +370,42 @@ button {
     color: #FF69B4;
     text-align: center;
     font-weight: bolder;
+}
+.barrage-on {
+    background-image: url(../images/barrage-on.png);
+    background-size: 24px 24px; 
+}
+.barrage-off {
+    background-image: url(../images/barrage-off.png);
+    background-size: 24px 24px; 
+}
+.barrage-box {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 88;
+    overflow: hidden;
+}
+.barrage-box div{
+    position: absolute;
+    right: 100%;
+    font-size: 18px;
+    color: aliceblue;
+    white-space: nowrap;
+    text-shadow: 0px 0px 4px #333;
+    animation: barrage ease-in 10s;
+    margin: 10px;
+}
+@keyframes barrage {
+    0% {
+        right: 0;
+        transform: translate(100%, 0);
+    }
+    100% {
+        right: 100%;
+        transform: translate(0, 0);
+    }
 }
 
 

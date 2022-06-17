@@ -12,6 +12,7 @@
             <div id="video-player" class="video-player">
                 <div id="video-player-left" class="video-player-left">
                     <div id="play-box" class="play-box">
+                        <div class="barrage-box"></div>
                         <div id="unique-play" class="unique-play"><i></i></div>
                         <video id="video" poster="./images/dva.jpg">
                             <source
@@ -22,12 +23,18 @@
                         </video>
                         <div id="play-action" class="play-action">
                             <div id="progress" class="progress">
-                                <div class="step"><i id="step-flag" draggable="true"></i></div>
+                                <div class="step">
+                                    <i id="step-flag" draggable="true"></i>
+                                </div>
                             </div>
                             <div class="control-box">
                                 <div class="control-left">
-                                    <div id="play" class="play" title="播放""></div>
-                                    <div class="time"><span class="time-now"></span>/<span class="time-all"></span></div>
+                                    <div id="play" class="play" title="播放"></div>
+                                    <div class="time">
+                                        <span class="time-now"></span>
+                                        /<span class="time-all"></span>
+                                    </div>
+                                    <div class="barrage-btn barrage-off" title="关弹幕"></div>
                                 </div>
                                 <div class="control-right">
                                         <div id="full-screen" class="full-screen in" title="全屏""></div>
@@ -47,7 +54,11 @@
                                         <div class="volume-ctrl">
                                             <button class="volume-on" title="音量"></button>
                                             <div class="volume-adjustment">
-                                                <span class="volume-text">50</span><span class="volume-now"><i id="volume-flag" draggable="true"></i></span><span class="volume-all"></span>  
+                                                <span class="volume-text">50</span>
+                                                <span class="volume-now">
+                                                    <i id="volume-flag" draggable="true"></i>
+                                                </span>
+                                                <span class="volume-all"></span>  
                                             </div>
                                         </div> 
                                 </div>
@@ -56,14 +67,21 @@
                     </div>
                 </div>
                 <div id="video-player-right" class="video-player-right">
-                    <div class="comment-list"></div>
+                    <div class="comment-list">
+                        <div class="comment-header">弹幕列表</div>
+                        <div class="comment-list-wrap">
+                            <ul></ul> 
+                            <span class="no-comment-tips">还没有弹幕哦，来一起互动吧 (づ｡◕‿‿◕｡)づ</span>
+                        </div>
+                    </div>
                     <div class="comment-action">
-                        <input type="text" />
-                        <button>发送</button>
+                        <input class="comment-value" value="" type="text" />
+                        <button class="submit-btn">发送</button>
                     </div>
                 </div>
             </div>
         </div>
+        <script src="./js/barrage.js"></script>
         <script src="./js/video-player.js"></script>
     </body>
 </html>
