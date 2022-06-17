@@ -22,15 +22,15 @@
 
 ### 主界面
 
-![界面展示一](./images/about/interface-1.png)
+![界面展示一](https://github.com/YaliixxG/video-player/blob/main/images/about/interface-1.png)
 
-![界面展示二](./images/about/interface-2.png)
+![界面展示二]((https://github.com/YaliixxG/video-player/blob/main/images/about/interface-2.png)
 
-![界面展示三](./images/about/interface-3.png)
+![界面展示三](https://github.com/YaliixxG/video-player/blob/main/images/about/interface-3.png)
 
 ### 小窗口
 
-![界面展示四](./images/about/interface-4.png)
+![界面展示四](https://github.com/YaliixxG/video-player/blob/main/images/about/interface-4.png)
 
 ### TODO
 
