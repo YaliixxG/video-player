@@ -22,7 +22,7 @@
 
 ### 主界面
 
-![界面展示一](./images/interface-1.png)
+![界面展示一](https://github.com/YaliixxG/video-player/blob/main/images/interface-1.png)
 
 ![界面展示二](./images/interface-2.png)
 
