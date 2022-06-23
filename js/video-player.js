@@ -87,6 +87,7 @@ const setSmallWindow = () => {
     $('#video').height = smallWindowWidth / wh;
     $('#play-action').style.display = 'none';
     $('#unique-play').className = 'unique-play small';
+    $('#video-player-right').style.display = 'none';
 };
 
 // 退出小窗口播放
@@ -95,6 +96,7 @@ const escSmallWindow = () => {
     $('#play-box').className = 'play-box';
     $('#unique-play').className = 'unique-play';
     $('#unique-play').style.display = $('#video').paused ? 'block' : 'none';
+    $('#video-player-right').style.display = 'block';
     initSize();
 };
 
