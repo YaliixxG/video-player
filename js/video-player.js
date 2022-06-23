@@ -46,7 +46,7 @@ const initSize = () => {
     $('#video').height = height;
     progressWidth = width - 16;
 
-    document.querySelector('#video-player').style.width = isWidthScreenMode
+    $('#video-player').style.width = isWidthScreenMode
         ? width + 'px'
         : width + vpWidth + 'px';
     $('#play-box').style.width = width + 'px';
@@ -116,14 +116,13 @@ const formatTime = t => {
 // 获取时间
 const getVideoTime = () => {
     let allTime = formatTime($('#video').duration);
-    let timeAll = document.querySelector('.time-all');
-    timeAll.innerText = allTime;
+    $('.time-all').innerText = allTime;
 };
 
 // 获取当前时间
 const getCurrentTime = () => {
     let currentTime = formatTime($('#video').currentTime);
-    document.querySelector('.time-now').innerText = currentTime;
+    $('.time-now').innerText = currentTime;
 };
 
 // 视频就绪
@@ -255,23 +254,21 @@ $('#width-screen').onclick = function() {
 
 // 宽屏播放
 const toggleWidthScreen = () => {
-    let videoPlayerRight = document.querySelector('#video-player-right');
-
     isWidthScreenMode = !isWidthScreenMode;
     initSize();
     $('#width-screen').title = isWidthScreenMode ? '退出宽屏' : '宽屏';
     $('#width-screen').className = isWidthScreenMode
         ? 'width-screen out'
         : 'width-screen in';
-    videoPlayerRight.style.display = isWidthScreenMode ? 'none' : 'block';
+    $('#video-player-right').style.display = isWidthScreenMode
+        ? 'none'
+        : 'block';
 };
 
 // 剧场模式
 $('.theater-mode').onclick = function() {
-    let videoPlayerLeft = document.querySelector('#video-player-left');
-
     isTheaterMode = !isTheaterMode;
-    videoPlayerLeft.className = isTheaterMode
+    $('#video-player-left').className = isTheaterMode
         ? 'video-player-left theater'
         : 'video-player-left';
     $('.theater-mode').title = isTheaterMode ? '退出剧场模式' : '剧场模式';
@@ -290,7 +287,7 @@ $('.speed-play-menu').addEventListener('click', function(e) {
     let dataValue = e.target.getAttribute('data-value');
 
     $('#video').playbackRate = Number(dataValue);
-    document.querySelector('.speed-play-title').innerText =
+    $('.speed-play-title').innerText =
         dataValue === '1.0' ? '倍速' : dataValue + 'x';
     $('.speed-play-menu').style.visibility = 'hidden';
 });
@@ -301,7 +298,7 @@ const getCurrentStep = stepWidth => {
 };
 
 // 单击进度条控制快进，快退
-document.querySelector('#progress').onclick = function(e) {
+$('#progress').onclick = function(e) {
     if (e.offsetX < 0) return;
     $('.step').style.width = e.offsetX + 'px';
     $('#video').currentTime =
@@ -309,7 +306,7 @@ document.querySelector('#progress').onclick = function(e) {
 };
 
 // 拖动进度条控制快进，快退
-document.querySelector('#step-flag').onmousedown = function(event) {
+$('#step-flag').onmousedown = function(event) {
     let e = event || window.event;
     let stepFlagLeft = e.clientX - this.offsetLeft;
 
@@ -337,19 +334,19 @@ document.querySelector('#step-flag').onmousedown = function(event) {
 
 // 音量控件
 $('.volume-ctrl').onmousemove = function() {
-    document.querySelector('.volume-adjustment').style.visibility = 'visible';
+    $('.volume-adjustment').style.visibility = 'visible';
 };
 
 $('.volume-ctrl').onmouseout = function() {
-    document.querySelector('.volume-adjustment').style.visibility = 'hidden';
+    $('.volume-adjustment').style.visibility = 'hidden';
 };
 
 const setVolume = function(num) {
     $('#video').volume = num;
     volumeNum = num || volumeNum;
     isSilent = num <= 0;
-    document.querySelector('.volume-now').style.height = num * 100 + 'px';
-    document.querySelector('.volume-text').innerText = parseInt(num * 100);
+    $('.volume-now').style.height = num * 100 + 'px';
+    $('.volume-text').innerText = parseInt(num * 100);
     $('.volume-on').className = isSilent ? 'volume-on muted' : 'volume-on';
 };
 
@@ -362,10 +359,9 @@ $('.volume-on').onclick = function() {
 };
 
 // 拖动音量块控制音量
-document.querySelector('#volume-flag').onmousedown = function(event) {
-    let volumeAll = document.querySelector('.volume-all');
+$('#volume-flag').onmousedown = function(event) {
     let e = event || window.event;
-    let volumeAllTop = volumeAll.getBoundingClientRect().bottom - 10;
+    let volumeAllTop = $('.volume-all').getBoundingClientRect().bottom - 10;
 
     document.onmousemove = function(event) {
         let e = event || window.event;
@@ -376,7 +372,7 @@ document.querySelector('#volume-flag').onmousedown = function(event) {
         if (progressY >= 100) {
             progressY = 100;
         }
-        document.querySelector('.volume-text').innerText = progressY;
+        $('.volume-text').innerText = progressY;
         setVolume(progressY / 100);
     };
 
@@ -399,9 +395,7 @@ $('#video').addEventListener('ended', function() {
 });
 
 // 发送弹幕
-document.querySelector('.submit-btn').onclick = function() {
-    let commentValue = document.querySelector('.comment-value');
-
+$('.submit-btn').onclick = function() {
     if (!barrageJSON.length) {
         $('.comment-list-wrap').className = 'comment-list-wrap';
         $('.no-comment-tips').style.display = 'none';
@@ -409,22 +403,22 @@ document.querySelector('.submit-btn').onclick = function() {
 
     // 前端数据（视频弹幕数据按视频时间）
     barrageData.unshift({
-        content: commentValue.value,
+        content: $('.comment-value').value,
         time: $('#video').currentTime
     });
 
     // 后台数据（弹幕列表按发送时间）
     barrageJSON.push({
-        content: commentValue.value,
+        content: $('.comment-value').value,
         time: $('#video').currentTime
     });
 
     let commentLi = document.createElement('li');
-    commentLi.innerText = commentValue.value;
-    commentLi.title = commentValue.value;
+    commentLi.innerText = $('.comment-value').value;
+    commentLi.title = $('.comment-value').value;
     $('.comment-list-wrap ul').appendChild(commentLi);
     $('.comment-list-wrap').scrollTop = $('.comment-list-wrap').scrollHeight;
-    commentValue.value = '';
+    $('.comment-value').value = '';
 };
 
 // 装载弹幕列表数据
