@@ -3,9 +3,13 @@ const $ = tag => {
     return document.querySelector(tag);
 };
 
+const toggleVisible = (d, isVisible) => {
+    d.style.visibility = isVisible ? 'visible' : 'hidden';
+};
+
 class VideoPlayer {
     constructor(dataJSON) {
-        this.wh; // #video宽高比
+        this.wh = 1; // #video宽高比
         this.isSmallWindow = false; // 是否是小窗口模式
         this.smallWindowWidth = 300; // 小窗口模式尺寸
         this.isFullScreenMode = false; // 是否为全屏模式
@@ -233,9 +237,10 @@ class VideoPlayer {
         $('#video').playbackRate = Number(dataValue);
         $('.speed-play-title').innerText =
             dataValue === '1.0' ? '倍速' : dataValue + 'x';
-        this.toggleVisible($('.speed-play-menu'), false);
+        toggleVisible($('.speed-play-menu'), false);
     }
 
+    // 点击进度条
     clickProgress(e) {
         if (e.offsetX < 0) return;
         $('.step').style.width = e.offsetX + 'px';
@@ -243,6 +248,7 @@ class VideoPlayer {
             (e.offsetX / this.progressWidth) * $('#video').duration;
     }
 
+    // 拖拽进度条
     dragProgress(event, stepFlagLeft) {
         let e = event || window.event;
         let progressX = e.clientX - stepFlagLeft;
@@ -257,12 +263,14 @@ class VideoPlayer {
             (progressX / this.progressWidth) * $('#video').duration;
     }
 
+    // 静音
     setVolumeSilent() {
         this.isSilent = !this.isSilent;
         $('#video').volume = this.isSilent ? 0 : this.volumeNum;
         this._setVolume($('#video').volume);
     }
 
+    // 拖拽音量条
     dragVolume(event, volumeAllTop) {
         let e = event || window.event;
         let progressY = volumeAllTop - e.clientY;
@@ -276,10 +284,7 @@ class VideoPlayer {
         this._setVolume(progressY / 100);
     }
 
-    toggleVisible(d, isVisible) {
-        d.style.visibility = isVisible ? 'visible' : 'hidden';
-    }
-
+    // 发送弹幕
     sendBarrage() {
         if (!this.dataJSON.length) {
             $('.comment-list-wrap').className = 'comment-list-wrap';
@@ -331,6 +336,7 @@ class VideoPlayer {
         this.barrageData.shift();
     }
 
+    // 设置弹幕开关
     toggleBarrageBtn() {
         this.isShowBarrage = !this.isShowBarrage;
         $('.barrage-box').style.opacity = this.isShowBarrage ? 1 : 0;
@@ -464,11 +470,11 @@ $('.theater-mode').onclick = function() {
 
 // 倍速控件
 $('.speed-play').onmousemove = function() {
-    vp.toggleVisible($('.speed-play-menu'), true);
+    toggleVisible($('.speed-play-menu'), true);
 };
 
 $('.speed-play').onmouseout = function() {
-    vp.toggleVisible($('.speed-play-menu'), false);
+    toggleVisible($('.speed-play-menu'), false);
 };
 
 // 选择倍速
@@ -500,15 +506,15 @@ $('#step-flag').onmousedown = function(event) {
 
 // 音量控件
 $('.volume-ctrl').onmousedown = function() {
-    vp.toggleVisible($('.volume-adjustment'), true);
+    toggleVisible($('.volume-adjustment'), true);
 };
 
 $('.volume-ctrl').onmousemove = function() {
-    vp.toggleVisible($('.volume-adjustment'), true);
+    toggleVisible($('.volume-adjustment'), true);
 };
 
 $('.volume-ctrl').onmouseout = function() {
-    vp.toggleVisible($('.volume-adjustment'), false);
+    toggleVisible($('.volume-adjustment'), false);
 };
 
 // 静音设置
